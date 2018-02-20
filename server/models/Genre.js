@@ -6,4 +6,4 @@ let GenreSchema=new Schema({
 GenreSchema.virtual('url').get(function(){
     return '/catalog/genres/'+this._id;
 });
-module.exports=mongoose.model('GenreModel',GenreSchema);
+module.exports=mongoose.model('Genre',GenreSchema);

@@ -12,4 +12,4 @@ AuthorSchema.virtual('name').get(function(){
 AuthorSchema.virtual('url').get(function(){
     return '/catalog/authors/'+this._id;
 });
-module.exports=mongoose.model('AuthorModel',AuthorSchema);
+module.exports=mongoose.model('Author',AuthorSchema);

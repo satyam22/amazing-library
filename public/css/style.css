@@ -1,0 +1,30 @@
+*{
+    list-style-type:none;
+}
+body{
+}
+.navbar{
+    margin-bottom:0;
+}
+.books{
+    display:flex;
+    flex-direction: column;
+}
+#wrapper{
+display:flex;
+align-items: stretch;
+}
+.sidebar{
+    border-right:1px solid #333;
+    min-height:100vh;
+    padding:20px;
+    margin-top:0;
+}
+.sidebar li{
+    padding:20px;
+}
+.create-genre{
+    width:400px;
+    margin-left:300px;
+    margin-top:100px;
+}
