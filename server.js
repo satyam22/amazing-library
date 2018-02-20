@@ -1,7 +1,9 @@
+require('dotenv').config();
 import express from 'express';
 import mongoose from'mongoose';
 var path=require('path');
 let app=express();
+let PORT=process.env.PORT||8080;
 // let routes=require('./server/routes/route');
 // let exhbs=require('express-handlebars');
 import catalog from './server/routes/catalog';
@@ -10,7 +12,6 @@ import exhbs from 'express-handlebars';
 // import GenreModel from './server/models/Genre';
 // import BookModel from './server/models/Book';
 // import BookInstanceModel from './server/models/BookInstance';
-
 
 /*mongodb database connection*/
 
@@ -43,6 +44,6 @@ app.get('/',(req,res)=>{
     res.render('home');
 });
 
-app.listen(8080,()=>{
-    console.log("Server is running on port: 8080");
+app.listen(PORT,()=>{
+    console.log("Server is running on port: %d",PORT);
 })
