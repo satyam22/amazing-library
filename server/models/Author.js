@@ -10,6 +10,6 @@ AuthorSchema.virtual('name').get(function(){
     return this.first_name+' '+this.last_name;
 });
 AuthorSchema.virtual('url').get(function(){
-    return '/catalog/authors/'+this._id;
+    return '/catalog/author/'+this._id;
 });
 module.exports=mongoose.model('Author',AuthorSchema);

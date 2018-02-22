@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 let express=require('express');
 let mongoose=require('mongoose');
 let path=require('path');
@@ -7,12 +6,11 @@ let bodyParser=require('body-parser');
 let exhbs=require('express-handlebars');
 let logger=require('winston');
 
+let app=express();
+let PORT=process.env.PORT||8080;
 import catalog from './server/routes/catalog';
 import admin from './server/routes/adminroute';
 
-let PORT=process.env.PORT||8080;
-
-let app=express();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
