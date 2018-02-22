@@ -1,0 +1,32 @@
+<div class="create-admin">
+    <form action='/admin/signup' method="POST">
+    <div class="form-group">
+        <label for="first name">First Name</label>
+        <input type="text" name="first_name" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="last name">Last Name</label>
+        <input type="text" name="last_name" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="contact-no">Contact No</label>
+        <input type="text" name="contact_no" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-default">CREATE ADMIN</button>
+    </form>
+</div>
+<div class="errors">
+    {{#if errors}}
+{{#each errors}}
+<li>{{this}}</li>
+{{/each}}
+    {{/if}}
+</div>

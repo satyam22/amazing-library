@@ -37,7 +37,6 @@ exports.create_genre_post=[
     body('name','Genre name is required').isLength({min:1}).trim(),
     sanitizeBody('name').trim().escape(),
     (req,res,result)=>{
-        console.log("====body====");
         console.log(req.body);
     let errors=validationResult(req);
     let genre=new Genre({
@@ -67,7 +66,6 @@ exports.create_genre_post=[
     }
     }
 ]
-
 
 exports.update_genre_get=(req,res)=>{
 
