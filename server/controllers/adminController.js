@@ -2,7 +2,8 @@ import Admin from '../models/Admin';
 import { body, validationResult } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import logger from 'winston';
-
+import jwt from 'jsonwebtoken';
+let jwtsecret = 'locallibraryjwtsecret';
 logger.level = 'debug';
 exports.create_admin_get = (req, res) => {
     res.render('createAdmin');
@@ -47,6 +48,8 @@ exports.create_admin_post = [
                         if (err) {
                             return next(err);
                         }
+                        let token = jwt.sign({ id: result._id }, jwtsecret, { expiresIn: 86400 });
+                        req.session.locallibrarytoken = token;
                         return res.render('createSuccessFeedback');
                     });
                 }
@@ -56,37 +59,48 @@ exports.create_admin_post = [
     }
 ]
 
-exports.login_admin_get=(req,res)=>{
-res.render('loginAdmin');
+exports.login_admin_get = (req, res) => {
+    res.render('loginAdmin');
 }
-exports.login_admin_post=[
-body('password','Invalid Password').isLength({min:6}).matches(/\d/),
-(req,res,next)=>{
-    let errors=validationResult(req);
-    if(!errors.isEmpty()){
-        let errorMsgs = [];
-        let tempErr = errors.mapped();
-        logger.debug("express validator validation error:: " + JSON.stringify(tempErr));
-        for (let prop in tempErr)
-            errorMsgs.push(tempErr[prop].msg);
-        res.render('loginAdmin', { errors: errorMsgs });
-        return;
+exports.login_admin_post = [
+    body('password', 'Invalid Password').isLength({ min: 6 }).matches(/\d/),
+    (req, res, next) => {
+        if (req.session.locallibrarytoken) {
+            jwt.verify(req.session.locallibrarytoken, jwtsecret, (err, decoded) => {
+                if (err) {
+                    logger.debug("error occured while verifying token::" + JSON.stringify(err));
+                    return next(err);
+                }
+                logger.info("jwt token verified successfully");
+                res.send("good");
+                res.end();
+            })
+        }
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorMsgs = [];
+            let tempErr = errors.mapped();
+            logger.debug("express validator validation error:: " + JSON.stringify(tempErr));
+            for (let prop in tempErr)
+                errorMsgs.push(tempErr[prop].msg);
+            res.render('loginAdmin', { errors: errorMsgs });
+            return;
+        }
+        else {
+            Admin.findOne({ email: req.body.email }, (err, result) => {
+                if (err) {
+                    next(err);
+                }
+                else if (!result) {
+                    res.render('loginAdmin', { errors: ["Email Id is not registered"] });
+                }
+                else if (result.password !== req.body.password) {
+                    res.render('loginAdmin', { errors: ["Password doesn't match with given email address"] });
+                }
+                else {
+                    res.send('Now You are into our system');
+                }
+            })
+        }
     }
-    else{
-        Admin.findOne({email:req.body.email},(err,result)=>{
-            if(err){
-             next(err);   
-            }
-            else if(!result){
-                res.render('loginAdmin', { errors:["Email Id is not registered"]});
-            }
-            else if(result.password !== req.body.password){
-                res.render('loginAdmin', { errors:["Password doesn't match with given email address"]});                
-            }
-            else{
-                res.send('Now You are into our system');
-            }
-        })
-    }
-}
 ]

@@ -1,0 +1,10 @@
+<div class="book-instances">
+    {{#each bookInstances}}
+    <li>
+        <a href={{this.book.url}}>{{this.book.title}}</a>
+        <p>Status: {{this.status}}</p>
+        <p>Due Back: {{this.due_back}}</p>
+        <p>Imprint: {{this.imprint}}</p>
+    </li>
+    {{/each}}
+</div>

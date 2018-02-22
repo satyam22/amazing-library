@@ -5,7 +5,8 @@ let path=require('path');
 let bodyParser=require('body-parser');
 let exhbs=require('express-handlebars');
 let logger=require('winston');
-
+let session=require('express-session');
+let MongoStore=require('connect-mongo')(session);
 let app=express();
 let PORT=process.env.PORT||8080;
 import catalog from './server/routes/catalog';
@@ -24,6 +25,12 @@ mongoose.Promise=global.Promise;
 let db=mongoose.connection;
 db.on('error',console.error.bind('console','MongoDB Connection Error'));
 
+app.use(session({
+    secret:'local-library',
+    resave:false,
+    saveUninitialized:true,
+    store:new MongoStore({mongooseConnection:db})
+}));
 /*set view engine to handlebar*/
 app.set('views',__dirname+'/server/views');
 app.engine('handlebars',exhbs({defaultLayout:__dirname+'/server/views/layouts/main'}));

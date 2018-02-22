@@ -1,0 +1,35 @@
+<div class="create-book-instance">
+    <form action="/catalog/bookInstance/create" method="POST">
+        <div class="form-group">
+            <label for="book">Book</label>
+            <select name="book" class="form-control" required>
+                {{#each books}}
+                <option value={{this._id}}>{{this.title}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select name="status" class="form-control">
+                <option value="Maintenance">Maintenance</option>
+                <option value="Available">Available</option>
+                <option value="Loaned">Loaned</option>
+                <option value="Reserved">Reserved</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="due back">Due Back</label>
+            <div class="input-group date" data-provide="datepicker">
+                <input type="text" class="form-control" name="due_back">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="imprint">Imprint</label>
+            <input type="text" name="imprint" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-default">CREATE BOOK INSTANCE</button>
+    </form>
+</div>
