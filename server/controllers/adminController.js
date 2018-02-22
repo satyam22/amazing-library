@@ -55,3 +55,38 @@ exports.create_admin_post = [
 
     }
 ]
+
+exports.login_admin_get=(req,res)=>{
+res.render('loginAdmin');
+}
+exports.login_admin_post=[
+body('password','Invalid Password').isLength({min:6}).matches(/\d/),
+(req,res,next)=>{
+    let errors=validationResult(req);
+    if(!errors.isEmpty()){
+        let errorMsgs = [];
+        let tempErr = errors.mapped();
+        logger.debug("express validator validation error:: " + JSON.stringify(tempErr));
+        for (let prop in tempErr)
+            errorMsgs.push(tempErr[prop].msg);
+        res.render('loginAdmin', { errors: errorMsgs });
+        return;
+    }
+    else{
+        Admin.findOne({email:req.body.email},(err,result)=>{
+            if(err){
+             next(err);   
+            }
+            else if(!result){
+                res.render('loginAdmin', { errors:["Email Id is not registered"]});
+            }
+            else if(result.password !== req.body.password){
+                res.render('loginAdmin', { errors:["Password doesn't match with given email address"]});                
+            }
+            else{
+                res.send('Now You are into our system');
+            }
+        })
+    }
+}
+]
