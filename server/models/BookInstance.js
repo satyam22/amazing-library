@@ -8,6 +8,6 @@ let BookInstanceSchema=Schema({
     imprint:{type:String,required:true}
 });
 BookInstanceSchema.virtual('url').get(function(){
-    return '/catalog/bookInstances/'+this._id;
+    return '/catalog/bookInstance/'+this._id;
 });
 module.exports=mongoose.model('BookInstance',BookInstanceSchema);

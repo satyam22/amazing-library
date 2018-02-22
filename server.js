@@ -1,6 +1,7 @@
 require('dotenv').config();
 import express from 'express';
 import mongoose from'mongoose';
+import bodyParser from 'body-parser';
 var path=require('path');
 let app=express();
 let PORT=process.env.PORT||8080;
@@ -34,6 +35,8 @@ db.on('error',console.error.bind('console','MongoDB Connection Error'));
 //         console.log(result);
 //     }
 // })
+app.use(bodyParser.urlencoded({ extended: false })) 
+app.use(bodyParser.json());
 app.use(express.static('public'));
 /*set view engine to handlebar*/
 app.set('views',__dirname+'/server/views');

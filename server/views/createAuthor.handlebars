@@ -1,0 +1,37 @@
+<div class="create-author container">
+    <form  action="/catalog/author/create" method="POST">
+        <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" name="first_name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" name="last_name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="birth date">Birth Date</label>
+            <div class="input-group date" data-provide="datepicker">
+                <input type="text" class="form-control" name="date_of_birth">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+                <div class="form-group">
+            <label for="birth date">Death Date</label>
+            <div class="input-group date" data-provide="datepicker">
+                <input type="text" class="form-control" name="date_of_death">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-default">CREATE AUTHOR</button>
+    </form>
+</div>
+<div class="errors">
+    {{#each errors}}
+    <li>{{this}}</li>
+    {{/each}}
+</div>

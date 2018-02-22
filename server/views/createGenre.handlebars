@@ -1,5 +1,5 @@
 <div class="create-genre container">
-<form action='/genre/create' method="POST">
+<form action='/catalog/genre/create' method="POST">
 <fieldset>
     <legend>Create Genre</legend>
 <div class="form-group">
@@ -10,4 +10,9 @@
 
 </fieldset>
 </form>
+</div>
+<div class="errors">
+    {{#each errors}}
+    <li>{{this}}</li>
+    {{/each}}
 </div>
