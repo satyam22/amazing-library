@@ -10,8 +10,8 @@ let session=require('express-session');
 let MongoStore=require('connect-mongo')(session);
 
 /*import route handlers*/
-import catalog from './server/routes/catalog';
-import admin from './server/routes/adminroute';
+import catalog from './src/routes/catalog';
+import admin from './src/routes/adminroute';
 
 const MONGODB_URI='mongodb://localhost:27017/LocalLibrary';
 
@@ -39,9 +39,9 @@ app.use(session({
     store:new MongoStore({mongooseConnection:db})
 }));
 
-app.set('views',__dirname+'/server/views');
+app.set('views',__dirname+'/src/views');
 //app.engine('handlebars',exhbs({}));
-app.engine('handlebars',exhbs({defaultLayout:__dirname+'/server/views/layouts/homelayout'}));
+app.engine('handlebars',exhbs({defaultLayout:__dirname+'/src/views/layouts/homelayout'}));
 app.set('view engine','handlebars');
 app.get('/',(req,res)=>{
 res.redirect('/catalog/books');

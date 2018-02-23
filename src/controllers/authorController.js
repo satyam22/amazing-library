@@ -6,18 +6,27 @@ import logger from 'Winston';
 logger.level='debug';
 exports.author_list = (req, res) => {
     Author.find({}, (err, result) => {
-        if (err)
-            next(err);
-        else
+        if (err){
+            looger.info('Error occured while fetching records from database');
+            logger.debug('error::'+err.toString());
+            res.render('error',{message:err.toString()});
+        }
+        else{
+            logger.info('successfully feched author records from database');
             res.render('authors', { authors: result });
+        }
     })
 }
 
 exports.author_detail = (req, res, next) => {
     Author.findById({ _id: req.params.id }, (err, result) => {
-        if (err)
-            next(err);
+        if (err){
+            looger.info('Error occured while fetching author record from database');
+            logger.debug('error::'+err.toString());
+            res.render('error',{message:err.toString()});
+        }
         else {
+            logger.info('successfully fetched author record from database');
             res.render('author', { author: result });
         }
     })
@@ -32,14 +41,16 @@ exports.create_author_post = [
     sanitizeBody('first_name').trim().escape(),
     sanitizeBody('last_name').trim().escape(),
     (req, res, next) => {
+        logger.info('create author post method entry point');
         let authorData = {};
         for(let prop in req.body){
             if(req.body[prop]!='')
             authorData[prop]=req.body[prop];
         }
-        logger.info('create author data::'+JSON.stringify(authorData));
+        logger.debug('create author data::'+JSON.stringify(authorData));
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
+            logger.info('error occured while validating create author request body');
             let errorMsgs = [];
             let tempErr = errors.mapped();
             logger.debug("express validator validation error:: " + JSON.stringify(tempErr));
@@ -49,17 +60,24 @@ exports.create_author_post = [
         }
         else{
         Author.findOne(authorData,(err,result)=>{
-            if(err)
-            return next(err);
+            if(err){
+                looger.info('Error occured while performing database operation');
+                logger.debug('error::'+err.toString());
+                res.render('error',{message:err.toString()});    
+            }
             else if(result){
                 res.redirect('/catalog/author/'+result._id);
             }            
             else{
             Author.create(authorData,(err,result)=>{
-                if(err)
-                return next(err);
-                else
-                return res.render('createSuccessFeedback');
+                if(err){
+                    looger.info('Error occured while performing database operation');
+                    logger.debug('error::'+err.toString());
+                    res.render('error',{message:err.toString()});                            
+                }
+                else{
+                    res.render('createSuccessFeedback');
+                }
             })
             }
         })

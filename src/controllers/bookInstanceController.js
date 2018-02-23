@@ -4,26 +4,44 @@ import logger from 'Winston';
 import {body,validationResult} from 'express-validator/check';
 import {santizeBody} from 'express-validator/filter';
 logger.level='debug';
+
 exports.book_instances=(req,res)=>{
 BookInstance.find({}).populate('book').exec((err,result)=>{
     if(err){
-        return res.render('error',{message:err.toString()});
+        logger.info('error occured while while fetching books from database');
+        logger.debug('error occured::'+err.toString());
+    res.render('error',{message:err.toString()});
     }
     logger.debug('book instances from database:: '+JSON.stringify(result));
-    return res.render('bookInstances',{bookInstances:result});    
+    res.render('bookInstances',{bookInstances:result});    
 })
 }
 
 exports.book_instance_details=(req,res)=>{
+BookInstance.findOne({_id:req.params.id}).populate('book').exec((err,result)=>{
+    if(err){
+        logger.info('error occured while while fetching books from database');
+        logger.debug('error occured::'+err.toString());
+        res.render('error',{message:err.toString()});
+    }
+    else{
+        logger.debug('book instance from database:: '+JSON.stringify(result));
+        res.render('bookInstance',{bookInstance:result});                
+    }
 
+})
 }
 
 exports.create_book_instance_get=(req,res)=>{
     Book.find({},'title _id',(err,books)=>{
-    if(err)
-    return next(err);
-    else
-    res.render('createBookInstance',{books,errorMessage:req.query.errorMessage});
+    if(err){
+        logger.info('error occured while while fetching book instance from database');
+        logger.debug('error occured::'+err.toString());
+        res.render('error',{message:err.toString()});
+    }
+    else{
+        res.render('createBookInstance',{books,errorMessage:req.query.errorMessage});
+    }
     });
 }
 
@@ -33,8 +51,11 @@ for(let prop in req.body)
 if(req.body[prop]!='')
 bookInstanceData[prop]=req.body[prop];
 BookInstance.findOne(bookInstanceData,(err,result)=>{
-    if(err)
-    return next(err);
+    if(err){
+        logger.info('error occured while while fetching book instance from database');
+        logger.debug('error occured::'+err.toString());
+        res.render('error',{message:err.toString()});        
+    }
     else if(result){
         let errorMessage=encodeURIComponent('Book Instance already exists');
         res.redirect('/catalog/bookInstance/create?errorMessage='+errorMessage);
@@ -47,21 +68,21 @@ BookInstance.findOne(bookInstanceData,(err,result)=>{
             res.render('createSuccessFeedback');
         });
     }
-})
+});
 }
 
 exports.update_book_instance_get=(req,res)=>{
-
+res.send('yet to implement');
 }
 
 exports.update_book_instance_post=(req,res)=>{
-
+res.send('yet to implement');
 }
 
 exports.delete_book_instance_get=(req,res)=>{
-
+res.send('yet to implement');
 }
 
 exports.delete_book_instance_post=(req,res)=>{
-
+res.send('yet to implement');
 }

@@ -6,7 +6,7 @@
         <div class="book-details">
         <p class="isbn">ISBN: {{isbn}}</p>
         <p>
-            Author: <a href="/catalog/author/" +{{this.author._id}}>{{this.author.first_name}}</a>
+            Author: <a href="/catalog/author/{{this.author._id}}">{{this.author.first_name}}</a>
         </p>
         <div>Genres: 
             {{#each genre}}
