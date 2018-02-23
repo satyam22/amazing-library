@@ -3,10 +3,10 @@ import { body, validationResult } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import logger from 'winston';
 import jwt from 'jsonwebtoken';
-let jwtsecret = 'locallibraryjwtsecret';
+let jwtsecret = process.env.JWT_SECRET||'locallibraryjwtsecret';
 logger.level = 'debug';
 exports.create_admin_get = (req, res) => {
-    res.render('createAdmin');
+    res.render('signupAdmin');
 }
 exports.create_admin_post = [
     body('first_name', 'Admin name is required').isLength({ min: 1 }).trim(),
@@ -30,7 +30,7 @@ exports.create_admin_post = [
             logger.debug("express validator validation error:: " + JSON.stringify(tempErr));
             for (let prop in tempErr)
                 errorMsgs.push(tempErr[prop].msg);
-            res.render('createAdmin', { errors: errorMsgs });
+            res.render('signupAdmin', { errors: errorMsgs });
             return;
         }
         else {
@@ -41,7 +41,7 @@ exports.create_admin_post = [
                 }
                 else if (result) {
                     logger.info("email id already in use");
-                    return res.render('createAdmin', { errors: ["Email Id already in use"] });
+                    return res.render('signupAdmin', { errors: ["Email Id already in use"] });
                 }
                 else {
                     admin.save((err, result) => {
@@ -98,6 +98,8 @@ exports.login_admin_post = [
                     res.render('loginAdmin', { errors: ["Password doesn't match with given email address"] });
                 }
                 else {
+                    let token = jwt.sign({ id: result._id }, jwtsecret, { expiresIn: 86400 });
+                    req.session.locallibrarytoken = token;
                     res.send('Now You are into our system');
                 }
             })

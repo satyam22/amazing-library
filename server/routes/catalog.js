@@ -4,10 +4,10 @@ import bookController from '../controllers/bookController';
 import bookInstanceController from '../controllers/bookInstanceController';
 import authorController from '../controllers/authorController';
 import genreController from '../controllers/genreController';
-
+import auth_middleware from '../utils/auth_middleware';
 
 //router.get('/',bookController.index);
-router.get('/books',bookController.books);
+router.get('/books',auth_middleware,bookController.books);
 router.get('/book/create',bookController.create_book_get);
 router.post('/book/create',bookController.create_book_post);
 

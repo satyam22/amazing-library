@@ -1,0 +1,11 @@
+<div class="book">
+    <h3>{{book.title}}</h3>
+    <p class="summary">{{book.summary}}</p>
+    <p class="isbn">{{isbn}}</p>
+<p><a href="/catalog/author/"+{{book.author._id}}>{{book.author.first_name}}</a></p>
+<h4>Genres: </h4>
+{{#each book.genre}}
+<li><a href="/catalog/genre/{{this._id}}"+>{{this.name}}</a></li>
+{{/each}}
+
+</div>

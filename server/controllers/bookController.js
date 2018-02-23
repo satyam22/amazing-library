@@ -15,18 +15,24 @@ exports.books = (req, res) => {
         populate('genre').
         exec((err, result) => {
             if (err) {
-                console.log(err);
                 res.send("Error occured while accessing data store");
             }
             else {
-                console.log(result);
+            logger.info('books fetched from database successfully');
                 res.render('books', { books: result });
             }
-
         });
 }
 exports.book_details = (req, res) => {
-    res.send("duummy");
+    Book.findById({_id:req.params.id}).populate('author').populate('genre').exec((err,book)=>{
+        if(err){
+            logger.info('Error occured while fetching book record by ID');
+            res.render('error',{message:err.toString()});            
+        }
+        else{
+            res.render('book',{book});
+        }
+    })
 }
 
 exports.create_book_get = (req, res) => {

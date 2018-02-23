@@ -1,13 +1,21 @@
-<div class="books container">
-{{#each books}}
-<li>
-<h3 class="title">{{title}}</h3>
-<p class="summary">{{summary}}</p>
-<p class="isbn">{{isbn}}</p>
-<p><a href="/catalog/author/"+{{this.author._id}}>{{this.author.first_name}}</a></p>
-<h4>Genres: </h4>
-{{#each this.genre}}
-<li><a href="/catalog/genre/{{this._id}}"+>{{this.name}}</a></li>
-{{/each}}
-{{/each}}
+<div class="books container-fluid">
+    {{#each books}}
+    <li class="book-item">
+        <h3 class="title text-center">{{title}}</h3>
+        <p class="summary">{{summary}}</p>
+        <div class="book-details">
+        <p class="isbn">ISBN: {{isbn}}</p>
+        <p>
+            Author: <a href="/catalog/author/" +{{this.author._id}}>{{this.author.first_name}}</a>
+        </p>
+        <div>Genres: 
+            {{#each genre}}
+            <span>
+                <a href="/catalog/genre/{{_id}}" +>{{name}}</a>
+            </span>
+            {{/each}}
+        </div>
+        </div>
+    </li>
+    {{/each}}
 </div>

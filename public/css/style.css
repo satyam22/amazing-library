@@ -1,40 +1,63 @@
 *{
-    list-style-type:none;
+  list-style-type:none;
 }
-body{
+a:hover{
+  text-decoration: none;
 }
-.navbar{
-    margin-bottom:0;
+.navigation{
+  display:flex;
+  padding:0;
+  background: #eee;
+}
+.navigation li{
+  padding:10px 30px;
+}
+.navigation li:first-child{
+  padding:10px 10px;
+}
+.brand-logo{
+  margin-left:140px;
+  margin-right:auto;
+  color:#333;
+  font-weight: bold;
+  letter-spacing:1.5px;
 }
 .books{
-    display:flex;
-    flex-direction: column;
-}
-#wrapper{
 display:flex;
-align-items: stretch;
+width:100%;
+flex-wrap: wrap;
+flex-direction:row;
 }
-.sidebar{
-    border-right:1px solid #333;
-    min-height:100vh;
-    padding:20px;
-    margin-top:0;
+.books .book-item{
+  padding:10px;
+  width:49%;
+  border:1px solid #eee;
+  min-height: 300px;
 }
-.sidebar li{
-    padding:20px;
+.books .book-item .summary{
+  text-align: justify;
+  padding:30px;
+  border-bottom:1px solid #eee;
 }
-.create-genre{
-    width:400px;
-    margin-left:300px;
-    margin-top:100px;
+.books .book-item .book-details{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
-.create-admin{
-    margin-left:300px;
-    margin-top:50px;
-    width:500px;
+.login-admin,.signup-admin{
+  width:400px;
+  margin:auto;
+  margin-top:100px;
+  border:1px solid #ddd;
+  padding:40px;
+  padding-top:0;
+  box-shadow: 0px 0px 5px  rgba(0, 0, 0,0.2);
 }
-.login-admin{
-    margin-left:300px;
-    margin-top:50px;
-    width:500px;
+.login-admin h3,.signup-admin h3{
+  padding-bottom:20px;
+  margin-bottom:30px;
+  border-bottom:1px solid #ddd;
+}
+.signup-admin{
+
 }

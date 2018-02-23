@@ -1,3 +1,4 @@
+/*import required npm modules*/
 require('dotenv').config();
 let express=require('express');
 let mongoose=require('mongoose');
@@ -7,23 +8,29 @@ let exhbs=require('express-handlebars');
 let logger=require('winston');
 let session=require('express-session');
 let MongoStore=require('connect-mongo')(session);
-let app=express();
-let PORT=process.env.PORT||8080;
+
+/*import route handlers*/
 import catalog from './server/routes/catalog';
 import admin from './server/routes/adminroute';
 
+const MONGODB_URI='mongodb://localhost:27017/LocalLibrary';
+
+
+
+let app=express();
+let PORT=process.env.PORT||8080;
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
 /*mongodb database connection*/
 
-const MONGODB_URI='mongodb://localhost:27017/LocalLibrary';
 logger.info('trying to connect with mongodb database');
 mongoose.connect(MONGODB_URI);
 mongoose.Promise=global.Promise;
 let db=mongoose.connection;
 db.on('error',console.error.bind('console','MongoDB Connection Error'));
+
 
 app.use(session({
     secret:'local-library',
@@ -31,12 +38,13 @@ app.use(session({
     saveUninitialized:true,
     store:new MongoStore({mongooseConnection:db})
 }));
-/*set view engine to handlebar*/
+
 app.set('views',__dirname+'/server/views');
-app.engine('handlebars',exhbs({defaultLayout:__dirname+'/server/views/layouts/main'}));
+//app.engine('handlebars',exhbs({}));
+app.engine('handlebars',exhbs({defaultLayout:__dirname+'/server/views/layouts/homelayout'}));
 app.set('view engine','handlebars');
 app.get('/',(req,res)=>{
-    res.render('home');
+res.redirect('/catalog/books');
 });
 
 app.use('/catalog',catalog);
