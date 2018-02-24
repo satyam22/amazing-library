@@ -7,7 +7,7 @@ logger.level='debug';
 exports.author_list = (req, res) => {
     Author.find({}, (err, result) => {
         if (err){
-            looger.info('Error occured while fetching records from database');
+            logger.info('Error occured while fetching records from database');
             logger.debug('error::'+err.toString());
             res.render('error',{message:err.toString(), user: req.auth_user_details});
         }
@@ -21,7 +21,7 @@ exports.author_list = (req, res) => {
 exports.author_detail = (req, res, next) => {
     Author.findById({ _id: req.params.id }, (err, result) => {
         if (err){
-            looger.info('Error occured while fetching author record from database');
+            logger.info('Error occured while fetching author record from database');
             logger.debug('error::'+err.toString());
             res.render('error',{message:err.toString(), user: req.auth_user_details});
         }
@@ -61,7 +61,7 @@ exports.create_author_post = [
         else{
         Author.findOne(authorData,(err,result)=>{
             if(err){
-                looger.info('Error occured while performing database operation');
+                logger.info('Error occured while performing database operation');
                 logger.debug('error::'+err.toString());
                 res.render('error',{message:err.toString(), user: req.auth_user_details});    
             }
@@ -71,12 +71,12 @@ exports.create_author_post = [
             else{
             Author.create(authorData,(err,result)=>{
                 if(err){
-                    looger.info('Error occured while performing database operation');
+                    logger.info('Error occured while performing database operation');
                     logger.debug('error::'+err.toString());
                     res.render('error',{message:err.toString(), user: req.auth_user_details});                            
                 }
                 else{
-                    res.render('createSuccessFeedback',{ user: req.auth_user_details});
+                    res.render('createSuccessFeedback',{message:'Added Author',user: req.auth_user_details});
                 }
             })
             }

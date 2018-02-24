@@ -77,7 +77,7 @@ exports.create_genre_post = [
                                 res.render('error', { "message": err.toString(),user:req.auth_user_details});
                             }
                             logger.info('genre created successfully in database');
-                            res.redirect(result.url);
+                            res.render('createSuccessFeedback',{message:'Added Genre',user:req.auth_user_details});
                         });
                     }
                 })

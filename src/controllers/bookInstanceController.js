@@ -65,7 +65,7 @@ BookInstance.findOne(bookInstanceData,(err,result)=>{
             if(err)
             return next(err);
             else
-            res.render('createSuccessFeedback',{user:req.auth_user_details});
+            res.render('createSuccessFeedback',{message:'Added Book Instance',user:req.auth_user_details});
         });
     }
 });

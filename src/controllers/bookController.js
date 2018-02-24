@@ -98,7 +98,7 @@ exports.create_book_post = [
                         if (err) {
                             return next(err);
                         }
-                        return res.render('createSuccessFeedback',{ user: req.auth_user_details});
+                        return res.render('createSuccessFeedback',{message:'Added Book',user: req.auth_user_details});
                     });
                 }
             });

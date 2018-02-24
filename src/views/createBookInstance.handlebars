@@ -1,4 +1,5 @@
 <div class="create-book-instance">
+    <h3 class="text-center">Add Book Instance</h3>
     <form action="/catalog/bookInstance/create" method="POST">
         <div class="form-group">
             <label for="book">Book</label>
@@ -20,7 +21,7 @@
         <div class="form-group">
             <label for="due back">Due Back</label>
             <div class="input-group date" data-provide="datepicker">
-                <input type="text" class="form-control" name="due_back">
+                <input type="text" class="form-control" name="due_back" placeholder="due back date">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-th"></span>
                 </div>
@@ -28,8 +29,8 @@
         </div>
         <div class="form-group">
             <label for="imprint">Imprint</label>
-            <input type="text" name="imprint" class="form-control" required>
+            <input type="text" name="imprint" class="form-control" placeholder="imprint" required>
         </div>
-        <button type="submit" class="btn btn-default">CREATE BOOK INSTANCE</button>
+        <button type="submit" class="btn btn-default btn-block">ADD BOOK INSTANCE</button>
     </form>
 </div>

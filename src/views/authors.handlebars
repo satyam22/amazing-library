@@ -1,14 +1,14 @@
 <div class="authors">
     {{#each authors}}
     <li>
-        <h3>{{this.name}}</h3>
+        <h3 class="text-center">{{this.name}}</h3>
         {{#if this.date_of_birth}}
-        <p>Birth Date: {{this.date_of_birth}}</p>
+        <p><b>Birth Date: </b>{{this.date_of_birth}}</p>
         {{/if}} 
         {{#if this.date_of_death}}
-        <p>Death Date: {{this.date_of_death}}</p>
+        <p><b>Death Date: </b>{{this.date_of_death}}</p>
         {{/if}}
-        <a href={{this.url}}>Know More</a>
+        <p class="text-center"><a href={{this.url}}>Know More</a></p>
     </li>
     {{/each}}
 </div>

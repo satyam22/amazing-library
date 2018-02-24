@@ -1,14 +1,14 @@
-<div class="books container-fluid">
+<div class="books">
     {{#each books}}
     <li class="book-item">
         <h3 class="title text-center">{{title}}</h3>
         <p class="summary">{{summary}}</p>
         <div class="book-details">
-        <p class="isbn">ISBN: {{isbn}}</p>
+        <p class="isbn"><b>ISBN: </b>{{isbn}}</p>
         <p>
-            Author: <a href="/catalog/author/{{this.author._id}}">{{this.author.first_name}}</a>
+            <b>Author: </b> <a href="/catalog/author/{{this.author._id}}">{{this.author.first_name}}</a>
         </p>
-        <div>Genres: 
+        <div><b>Genres: </b> 
             {{#each genre}}
             <span>
                 <a href="/catalog/genre/{{_id}}" +>{{name}}</a>
