@@ -9,11 +9,11 @@ exports.author_list = (req, res) => {
         if (err){
             looger.info('Error occured while fetching records from database');
             logger.debug('error::'+err.toString());
-            res.render('error',{message:err.toString()});
+            res.render('error',{message:err.toString(), user: req.auth_user_details});
         }
         else{
             logger.info('successfully feched author records from database');
-            res.render('authors', { authors: result });
+            res.render('authors', { authors: result, user: req.auth_user_details});
         }
     })
 }
@@ -23,17 +23,17 @@ exports.author_detail = (req, res, next) => {
         if (err){
             looger.info('Error occured while fetching author record from database');
             logger.debug('error::'+err.toString());
-            res.render('error',{message:err.toString()});
+            res.render('error',{message:err.toString(), user: req.auth_user_details});
         }
         else {
             logger.info('successfully fetched author record from database');
-            res.render('author', { author: result });
+            res.render('author', { author: result, user: req.auth_user_details});
         }
     })
 }
 
 exports.create_author_get = (req, res) => {
-    res.render('createAuthor');
+    res.render('createAuthor',{ user: req.auth_user_details});
 }
 
 exports.create_author_post = [
@@ -56,14 +56,14 @@ exports.create_author_post = [
             logger.debug("express validator validation error:: " + JSON.stringify(tempErr));
             for (let prop in tempErr)
                 errorMsgs.push(tempErr[prop].msg);
-                res.render('createAuthor',{errors:errorMsgs});
+                res.render('createAuthor',{errors:errorMsgs, user: req.auth_user_details});
         }
         else{
         Author.findOne(authorData,(err,result)=>{
             if(err){
                 looger.info('Error occured while performing database operation');
                 logger.debug('error::'+err.toString());
-                res.render('error',{message:err.toString()});    
+                res.render('error',{message:err.toString(), user: req.auth_user_details});    
             }
             else if(result){
                 res.redirect('/catalog/author/'+result._id);
@@ -73,10 +73,10 @@ exports.create_author_post = [
                 if(err){
                     looger.info('Error occured while performing database operation');
                     logger.debug('error::'+err.toString());
-                    res.render('error',{message:err.toString()});                            
+                    res.render('error',{message:err.toString(), user: req.auth_user_details});                            
                 }
                 else{
-                    res.render('createSuccessFeedback');
+                    res.render('createSuccessFeedback',{ user: req.auth_user_details});
                 }
             })
             }
@@ -86,17 +86,17 @@ exports.create_author_post = [
 ]
 
 exports.update_author_get = (req, res) => {
-
+res.send('yet to implement');
 }
 
 exports.update_author_post = (req, res) => {
-
+    res.send('yet to implement');
 }
 
 exports.delete_author_get = (req, res) => {
-
+    res.send('yet to implement');
 }
 
 exports.delete_author_post = (req, res) => {
-
+    res.send('yet to implement');
 }

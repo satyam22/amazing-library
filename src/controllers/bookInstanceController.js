@@ -10,10 +10,10 @@ BookInstance.find({}).populate('book').exec((err,result)=>{
     if(err){
         logger.info('error occured while while fetching books from database');
         logger.debug('error occured::'+err.toString());
-    res.render('error',{message:err.toString()});
+    res.render('error',{message:err.toString(),user:req.auth_user_details});
     }
     logger.debug('book instances from database:: '+JSON.stringify(result));
-    res.render('bookInstances',{bookInstances:result});    
+    res.render('bookInstances',{bookInstances:result,user:req.auth_user_details});    
 })
 }
 
@@ -22,11 +22,11 @@ BookInstance.findOne({_id:req.params.id}).populate('book').exec((err,result)=>{
     if(err){
         logger.info('error occured while while fetching books from database');
         logger.debug('error occured::'+err.toString());
-        res.render('error',{message:err.toString()});
+        res.render('error',{message:err.toString(),user:req.auth_user_details});
     }
     else{
         logger.debug('book instance from database:: '+JSON.stringify(result));
-        res.render('bookInstance',{bookInstance:result});                
+        res.render('bookInstance',{bookInstance:result,user:req.auth_user_details});                
     }
 
 })
@@ -37,10 +37,10 @@ exports.create_book_instance_get=(req,res)=>{
     if(err){
         logger.info('error occured while while fetching book instance from database');
         logger.debug('error occured::'+err.toString());
-        res.render('error',{message:err.toString()});
+        res.render('error',{message:err.toString(),user:req.auth_user_details});
     }
     else{
-        res.render('createBookInstance',{books,errorMessage:req.query.errorMessage});
+        res.render('createBookInstance',{books,errorMessage:req.query.errorMessage,user:req.auth_user_details});
     }
     });
 }
@@ -54,7 +54,7 @@ BookInstance.findOne(bookInstanceData,(err,result)=>{
     if(err){
         logger.info('error occured while while fetching book instance from database');
         logger.debug('error occured::'+err.toString());
-        res.render('error',{message:err.toString()});        
+        res.render('error',{message:err.toString(),user:req.auth_user_details});        
     }
     else if(result){
         let errorMessage=encodeURIComponent('Book Instance already exists');
@@ -65,7 +65,7 @@ BookInstance.findOne(bookInstanceData,(err,result)=>{
             if(err)
             return next(err);
             else
-            res.render('createSuccessFeedback');
+            res.render('createSuccessFeedback',{user:req.auth_user_details});
         });
     }
 });

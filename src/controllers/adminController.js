@@ -1,19 +1,27 @@
+
 import Admin from '../models/Admin';
 import { body, validationResult } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 import logger from 'winston';
 import jwt from 'jsonwebtoken';
+
+
 let jwtsecret = process.env.JWT_SECRET||'locallibraryjwtsecret';
 logger.level = 'debug';
+
+
 exports.create_admin_get = (req, res) => {
+    logger.info('create admin get method entry point');
     res.render('signupAdmin');
 }
+
+
 exports.create_admin_post = [
     body('first_name', 'Admin name is required').isLength({ min: 1 }).trim(),
     body('email', 'Invalid Email Address').isEmail().trim().normalizeEmail(),
     body('password', 'Password must be at least 6 characters long and must contain numeric digit').isLength({ min: 6 }).matches(/\d/),
-
     (req, res, next) => {
+        logger.info('create admin post method entry point');
         logger.debug("create admin request body::" + JSON.stringify(req.body));
         let adminData = {};
         for (let prop in req.body) {
@@ -60,11 +68,13 @@ exports.create_admin_post = [
 ]
 
 exports.login_admin_get = (req, res) => {
+    logger.info('login admin get method entry point');
     res.render('loginAdmin');
 }
 exports.login_admin_post = [
     body('password', 'Invalid Password').isLength({ min: 6 }).matches(/\d/),
     (req, res, next) => {
+        logger.info('login admin post method entry point');
         if (req.session.locallibrarytoken) {
             jwt.verify(req.session.locallibrarytoken, jwtsecret, (err, decoded) => {
                 if (err) {
@@ -72,8 +82,7 @@ exports.login_admin_post = [
                     return next(err);
                 }
                 logger.info("jwt token verified successfully");
-                res.send("good");
-                res.end();
+                return res.redirect('/catalog/books');
             })
         }
         let errors = validationResult(req);
@@ -98,11 +107,26 @@ exports.login_admin_post = [
                     res.render('loginAdmin', { errors: ["Password doesn't match with given email address"] });
                 }
                 else {
+                    logger.info('in login method::user verified successfully:: sending jwt token in request');
                     let token = jwt.sign({ id: result._id }, jwtsecret, { expiresIn: 86400 });
                     req.session.locallibrarytoken = token;
-                    res.send('Now You are into our system');
+                    return res.redirect('/catalog/books');
                 }
             })
         }
     }
 ]
+exports.logout_admin=(req,res)=>{
+    logger.info('admin logout method entry');
+   // logger.info('req session object::'+JSON.stringify(req.session));
+    req.session.destroy(err=>{
+        if(err){
+            logger.info('error::'+err.toString());
+            res.render('error',{message:err.message});
+        }
+        else{
+            logger.info('session destroyed successfully');
+            res.redirect('/catalog/books');
+        }
+        });
+}

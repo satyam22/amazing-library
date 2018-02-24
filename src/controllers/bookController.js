@@ -6,12 +6,12 @@ import async from 'async';
 import { body, validationResult } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 
-
 exports.index = (req, res) => {
     res.redirect('/catalog/books');
 }
 
 exports.books = (req, res) => {
+    logger.info('authenticated user details inside book controller::' + JSON.stringify(req.auth_user_details));
     Book.find({}).
         populate('author').
         populate('genre').
@@ -19,11 +19,11 @@ exports.books = (req, res) => {
             if (err) {
                 looger.info('Error occured while performing database operation');
                 logger.debug('error::' + err.toString());
-                res.render('error', { message: err.toString() });
+                res.render('error', { message: err.toString(), user: req.auth_user_details});
             }
             else {
                 logger.info('books fetched from database successfully');
-                res.render('books', { books: result });
+                res.render('books', { books: result, user: req.auth_user_details});
             }
         });
 }
@@ -31,10 +31,10 @@ exports.book_details = (req, res) => {
     Book.findById({ _id: req.params.id }).populate('author').populate('genre').exec((err, book) => {
         if (err) {
             logger.info('Error occured while fetching book record by ID');
-            res.render('error', { message: err.toString() });
+            res.render('error', { message: err.toString(), user: req.auth_user_details});
         }
         else {
-            res.render('book', { book });
+            res.render('book', { book, user: req.auth_user_details});
         }
     })
 }
@@ -50,12 +50,12 @@ exports.create_book_get = (req, res) => {
         Genre.find({}, callback)
     }], (err, results) => {
         logger.info("author and genre get results");
-        logger.debug("author and genre get results"+JSON.stringify(results));
+        logger.debug("author and genre get results" + JSON.stringify(results));
         if (req.query.errorMessage) {
-            res.render('createBook', { authors: results[0], genres: results[1], errorMessage: req.query.errorMessage });
+            res.render('createBook', { authors: results[0], genres: results[1], errorMessage: req.query.errorMessage, user: req.auth_user_details});
         }
         else {
-            res.render('createBook', { authors: results[0], genres: results[1] });
+            res.render('createBook', { authors: results[0], genres: results[1], user: req.auth_user_details});
         }
     });
 }
@@ -98,7 +98,7 @@ exports.create_book_post = [
                         if (err) {
                             return next(err);
                         }
-                        return res.render('createSuccessFeedback');
+                        return res.render('createSuccessFeedback',{ user: req.auth_user_details});
                     });
                 }
             });
