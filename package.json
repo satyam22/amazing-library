@@ -6,6 +6,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "connect-mongo": "^2.0.1",
+    "express": "^4.13.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "express-validator": "^5.0.1",
@@ -25,6 +26,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "dotenv": "^5.0.0"
   },
-  "author":"Satyam Bansal",
-  "author_web_url":"http://satyam22.github.io"
+  "author": "Satyam Bansal",
+  "author_web_url": "http://satyam22.github.io"
 }
