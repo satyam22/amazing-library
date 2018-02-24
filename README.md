@@ -2,7 +2,8 @@
 This Project has been created to learn how to develop full stack application in Node JS,Express,MongoDB and handlebars.this project showcase the functionality of local book library.
 
 # Working Demo
-http://ec2-13-126-43-151.ap-south-1.compute.amazonaws.com:8080
+<a href="http://ec2-13-126-43-151.ap-south-1.compute.amazonaws.com:8080" target="_blank">http://ec2-13-126-43-151.ap-south-1.compute.amazonaws.com:8080</a>
+
 
 # Local development steps
 1. Clone this repository
