@@ -1,7 +1,7 @@
 import Book from '../models/Book';
 import Author from '../models/Author';
 import Genre from '../models/Genre';
-import logger from 'Winston';
+import logger from 'winston';
 import async from 'async';
 import { body, validationResult } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';

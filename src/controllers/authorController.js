@@ -1,7 +1,7 @@
 import Author from '../models/Author';
 import { body, validationResult } from 'express-validator/check';
 import { sanitizeBody, matchedData } from 'express-validator/filter';
-import logger from 'Winston';
+import logger from 'winston';
 
 logger.level='debug';
 exports.author_list = (req, res) => {

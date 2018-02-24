@@ -1,6 +1,6 @@
 import BookInstance from '../models/BookInstance';
 import Book from '../models/Book';
-import logger from 'Winston';
+import logger from 'winston';
 import {body,validationResult} from 'express-validator/check';
 import {santizeBody} from 'express-validator/filter';
 logger.level='debug';

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import logger from 'Winston';
+import logger from 'winston';
 import Admin from '../models/Admin';
 import path from 'path';
 let jwtsecret = process.env.JWT_SECRET || 'locallibraryjwtsecret';

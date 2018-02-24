@@ -2,7 +2,7 @@
 import Genre from '../models/Genre';
 const { body, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
-import logger from 'Winston';
+import logger from 'winston';
 
 exports.genres = (req, res) => {
     Genre.find({}, (err, result) => {

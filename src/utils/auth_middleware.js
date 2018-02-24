@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import logger from 'Winston';
+import logger from 'winston';
 let jwtsecret = process.env.JWT_SECRET||'locallibraryjwtsecret';
 
 module.exports=(req,res,next)=>{

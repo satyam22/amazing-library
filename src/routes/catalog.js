@@ -6,6 +6,8 @@ import authorController from '../controllers/authorController';
 import genreController from '../controllers/genreController';
 import auth_middleware from '../utils/auth_middleware';
 import ingest_auth_user_detail from '../utils/ingest_auth_user_detail';
+
+
 router.get('/',bookController.index);
 router.get('/books',ingest_auth_user_detail,bookController.books);
 router.get('/book/create',ingest_auth_user_detail,auth_middleware,bookController.create_book_get);
