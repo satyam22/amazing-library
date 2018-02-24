@@ -10,10 +10,10 @@ if (!userArgs[0].startsWith('mongodb://')) {
 }
 
 var async = require('async')
-var Book = require('./server/models/Book')
-var Author = require('./server/models/Author')
-var Genre = require('./server/models/Genre')
-var BookInstance = require('./server/models/BookInstance')
+var Book = require('./src/models/Book')
+var Author = require('./src/models/Author')
+var Genre = require('./src/models/Genre')
+var BookInstance = require('./src/models/BookInstance')
 
 
 var mongoose = require('mongoose');
