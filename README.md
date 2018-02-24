@@ -20,7 +20,8 @@ This Project has been created to learn how to develop full stack application in 
 * How to perform create, read, update and delete operation in mongodb using mongoose API
 * How to Use JWT token to authenticate user
 * How to implement logina and sign up functionality for applications
-
+# Notice
+*Currenty only Create and Read method has been implemented.Delete and Update methods are yet to implement*
 # Other
 **I have inserted proper comments to explain how each functionality work and why we are using certain method.**
 
