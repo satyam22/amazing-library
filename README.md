@@ -9,7 +9,7 @@ This Project has been created to learn how to develop full stack application in 
 1. Clone this repository
 2. run `npm install` in this repository
 3. start mongod server using `mongod` command
-4. run 'npm start'
+4. run `npm start`
 
 # What you can learn from this project?
 * How to create Simple Server in Node JS
