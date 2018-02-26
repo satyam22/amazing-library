@@ -9,7 +9,7 @@ This Project has been created to learn how to develop full stack application in 
 1. Clone this repository
 2. run `npm install` in this repository
 3. start mongod server using `mongod` command
-4.run `node populatedb.js http://localhost:27017/LocalLibrary` to pupulate your databse with dummy content
+4. run `node populatedb.js http://localhost:27017/LocalLibrary` to pupulate your databse with dummy content
 5. run `npm start`
 
 # What you can learn from this project?
